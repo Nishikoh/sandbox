@@ -35,13 +35,13 @@ jobs:
     if: ${{ always() }}
     steps:
     - name: Set Variables on Success
-      if: ${{ success() }}
+      if: success()
       run: echo "COLOR=green" >> $GITHUB_ENV && echo "TEXT=Successfully" >> $GITHUB_ENV
     - name: Set Variables on Fail
-      if: ${{ failure() }}
+      if: $failure()
       run: echo "COLOR=red" >> $GITHUB_ENV && echo "TEXT=Fail" >> $GITHUB_ENV
     - name: Set COMMIT_MESSAGE
-      run: echo ::set-env name=COMMIT_MESSAGE::$(echo "${{ github.event.head_commit.message }}" | tr '\n' ' ')
+      run: echo "COMMIT_MESSAGE=${{ github.event.head_commit.message }} >> $GITHUB_ENV
     - name: Slack Notification
       uses: tokorom/action-slack-incoming-webhook@main
       env:
