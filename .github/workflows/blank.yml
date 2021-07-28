@@ -22,16 +22,17 @@ jobs:
     steps:
       - name: success
         if: ${{ github.event.inputs.status == 'success' }}
-        run: return 0
+        run: exit 0
       - name: fail
         if: ${{ github.event.inputs.status == 'fail' }}
-        run: return 1
+        run: exit 1
         
   slack-notify:
     name: Slack Notify
     runs-on: ubuntu-latest
     timeout-minutes: 5
     needs: [job-1, job-2]
+    if: ${{ always() }}
     steps:
     - name: Set Variables on Success
       if: ${{ success() }}
