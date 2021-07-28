@@ -38,7 +38,7 @@ jobs:
       if: success()
       run: echo "COLOR=green" >> $GITHUB_ENV && echo "TEXT=Successfully" >> $GITHUB_ENV
     - name: Set Variables on Fail
-      if: $ failure()
+      if: failure()
       run: echo "COLOR=red" >> $GITHUB_ENV && echo "TEXT=Fail" >> $GITHUB_ENV
     - name: Set COMMIT_MESSAGE
       run: echo "COMMIT_MESSAGE=${{ github.event.head_commit.message }} >> $GITHUB_ENV
