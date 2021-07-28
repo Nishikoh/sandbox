@@ -60,6 +60,11 @@ jobs:
                 {
                   "title": "Workflow Name",
                   "value": "${{ github.workflow }}"
+                },
+                {
+                  "title": "Input Variables",
+                  "value": "status: ${{ github.event.inputs.status }}",
+                  "value": "hoge"
                 }
               ]
             }
@@ -98,6 +103,11 @@ jobs:
                 {
                   "title": "Workflow Name",
                   "value": "${{ github.workflow }}"
+                },
+                {
+                  "title": "Input Variables",
+                  "value": "status: ${{ github.event.inputs.status }}",
+                  "value": "hoge"
                 }
               ]
             }
