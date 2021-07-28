@@ -63,8 +63,7 @@ jobs:
                 },
                 {
                   "title": "Input Variables",
-                  "value": "status: ${{ github.event.inputs.status }} \n
-                            foobar"
+                  "value": "status: ${{ github.event.inputs.status }} \n foobar"
                 }
               ]
             }
