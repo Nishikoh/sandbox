@@ -64,7 +64,8 @@ jobs:
                 {
                   "title": "Input Variables",
                   "value": "status: ${{ github.event.inputs.status }}",
-                  "value": "hoge"
+                  "value": "hoge",
+                  "value": "fuga"
                 }
               ]
             }
@@ -107,7 +108,8 @@ jobs:
                 {
                   "title": "Input Variables",
                   "value": "status: ${{ github.event.inputs.status }}",
-                  "value": "hoge"
+                  "value": "hoge",
+                  "value": "fuga"
                 }
               ]
             }
