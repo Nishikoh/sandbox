@@ -35,14 +35,10 @@ jobs:
     steps:
     - name: Set Variables on Success
       if: ${{ success() }}
-      env:
-        COLOR: green
-        TEXT: Successfully
+      run: echo "COLOR=green" >> $GITHUB_ENV && echo "TEXT=Successfully" >> $GITHUB_ENV
     - name: Set Variables on Fail
       if: ${{ failure() }}
-      env:
-        COLOR: red
-        TEXT: Fail
+      run: echo "COLOR=red" >> $GITHUB_ENV && echo "TEXT=Fail" >> $GITHUB_ENV
     - name: Set COMMIT_MESSAGE
       run: echo ::set-env name=COMMIT_MESSAGE::$(echo "${{ github.event.head_commit.message }}" | tr '\n' ' ')
     - name: Slack Notification
@@ -50,7 +46,7 @@ jobs:
       env:
         INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       with:
-        text: ${{env.Text}} automated deployment.
+        text: ${{env.TEXT}} automated deployment.
         attachments: |
           [
             {
