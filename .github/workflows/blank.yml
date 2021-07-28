@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     needs: [job-1, job-2]
-    if: success()
+    if: ! failure()
     steps:
     - name: Set Variables on Success
       run: echo "COLOR=good" >> $GITHUB_ENV && echo "TEXT=Successfully" >> $GITHUB_ENV
