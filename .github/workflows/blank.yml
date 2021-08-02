@@ -74,4 +74,11 @@ jobs:
                 "text": "*GitHub Actions URL*\nhttps://github.com/eightcard/randd_data_visualization/actions/runs/${{ github.run_id }}\n"
               }
             }
+          {
+              "type": "section",
+              "text": {
+                "type": "mrkdwn",
+                "text": "*Input Variables* \nstatus: ${{ github.event.inputs.status }} "
+              }
+            }
           ]
