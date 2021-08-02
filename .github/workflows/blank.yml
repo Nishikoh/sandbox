@@ -32,69 +32,34 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     needs: [job-1, job-2]
-    if: ${{ ! failure() }}
+    if: always()
     steps:
-    - name: Set Variables on Success
-      run: echo "COLOR=good" >> $GITHUB_ENV && echo "TEXT=Successfully" >> $GITHUB_ENV
-    - name: Set COMMIT_MESSAGE
-      run: echo "COMMIT_MESSAGE=${{ github.event.head_commit.message }}" >> $GITHUB_ENV
+    - name: Set Variables
+      id: var 
+      run: |
+        if [ ${{ needs.job1.result }} = "success" ] && \
+           [ ${{ needs.job2.result }} = "success" ]; then
+          echo "::set-output name=TEXT::Successfully"
+          echo "::set-output name=STATUS_MOJI:::white_check_mark:"
+        else
+          echo "::set-output name=TEXT::Unsuccessfully"
+          echo "::set-output name=STATUS_MOJI:::x:" 
+        fi
+
     - name: Slack Notification
       uses: tokorom/action-slack-incoming-webhook@main
       env:
         INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       with:
-        text: ${{env.TEXT}} automated deployment.
         blocks: |
           [
-            {
-              "type": "section",
-              "text": {
-                "type": "plain_text",
-                "text": ":white_check_mark:"
-              }
-            },
-            {
-              "type": "section",
-              "text": {
-                "type": "plain_text",
-                "text": "${{ github.workflow }}"
-              }
-            },
-            {
-              "type": "section",
-              "text": {
-                "type": "mrkdwn",
-                "text": "*GitHub Actions URL*\nhttps://github.com/eightcard/randd_data_visualization/actions/runs/${{ github.run_id }}\n"
-              }
-            }
-          ]
-          
-  slack-notify-fail:
-    name: Slack Notify on Failure
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    needs: [job-1, job-2]
-    if: failure()
-    steps:
-    - name: Set Variables on Success
-      run: echo "COLOR=danger" >> $GITHUB_ENV && echo "TEXT=Fail" >> $GITHUB_ENV
-    - name: Set COMMIT_MESSAGE
-      run: echo "COMMIT_MESSAGE=${{ github.event.head_commit.message }}" >> $GITHUB_ENV
-    - name: Slack Notification
-      uses: tokorom/action-slack-incoming-webhook@main
-      env:
-        INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      with:
-        text: ${{env.TEXT}} automated deployment.
-        blocks: |
-          [
-            {
-              "type": "section",
-              "text": {
-                "type": "plain_text",
-                "text": ":x:"
-              }
-            },
+          		{
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Result* \ndata-visualization-3rd: ${{ steps.var.outputs.TEXT }} automated deployment ${{ steps.var.outputs.STATUS_MOJI}}"
+                }
+              },
             {
               "type": "section",
               "text": {
