@@ -44,28 +44,28 @@ jobs:
         INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       with:
         text: ${{env.TEXT}} automated deployment.
-        attachments: |
+        blocks: |
           [
             {
-              "color": "${{env.COLOR}}",
-              "fields": [
-                {
-                  "title": "Commit Message",
-                  "value": "${{ env.COMMIT_MESSAGE }}"
-                },
-                {
-                  "title": "GitHub Actions URL",
-                  "value": "https://github.com/Nishikoh/actions-practice/actions/runs/${{ github.run_id }}"
-                },
-                {
-                  "title": "Workflow Name",
-                  "value": "${{ github.workflow }}"
-                },
-                {
-                  "title": "Input Variables",
-                  "value": "status: ${{ github.event.inputs.status }} \n foobar"
-                }
-              ]
+              "type": "section",
+              "text": {
+                "type": "plain_text",
+                "text": ":white_check_mark:"
+              }
+            },
+            {
+              "type": "section",
+              "text": {
+                "type": "plain_text",
+                "text": "${{ github.workflow }}"
+              }
+            },
+            {
+              "type": "section",
+              "text": {
+                "type": "mrkdwn",
+                "text": "*GitHub Actions URL*\nhttps://github.com/eightcard/randd_data_visualization/actions/runs/${{ github.run_id }}\n"
+              }
             }
           ]
           
@@ -86,28 +86,27 @@ jobs:
         INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       with:
         text: ${{env.TEXT}} automated deployment.
-        attachments: |
+        blocks: |
           [
             {
-              "color": "${{env.COLOR}}",
-              "fields": [
-                {
-                  "title": "Commit Message",
-                  "value": "${{ env.COMMIT_MESSAGE }}"
-                },
-                {
-                  "title": "GitHub Actions URL",
-                  "value": "https://github.com/Nishikoh/actions-practice/actions/runs/${{ github.run_id }}"
-                },
-                {
-                  "title": "Workflow Name",
-                  "value": "${{ github.workflow }}"
-                },
-                {
-                  "title": "Input Variables",
-                  "value": "status: ${{ github.event.inputs.status }} \n foobar"
-                }
-              ]
+              "type": "section",
+              "text": {
+                "type": "plain_text",
+                "text": ":x:"
+              }
+            },
+            {
+              "type": "section",
+              "text": {
+                "type": "plain_text",
+                "text": "${{ github.workflow }}"
+              }
+            },
+            {
+              "type": "section",
+              "text": {
+                "type": "mrkdwn",
+                "text": "*GitHub Actions URL*\nhttps://github.com/eightcard/randd_data_visualization/actions/runs/${{ github.run_id }}\n"
+              }
             }
           ]
-
