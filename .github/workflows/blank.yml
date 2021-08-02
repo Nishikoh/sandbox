@@ -37,8 +37,8 @@ jobs:
     - name: Set Variables
       id: var 
       run: |
-        if [ ${{ needs.job1.result }} = "success" ] && \
-           [ ${{ needs.job2.result }} = "success" ]; then
+        if [ ${{ needs.job-1.result }} = "success" ] && \
+           [ ${{ needs.job-2.result }} = "success" ]; then
           echo "::set-output name=TEXT::Successfully"
           echo "::set-output name=STATUS_MOJI:::white_check_mark:"
         else
@@ -63,8 +63,8 @@ jobs:
             {
               "type": "section",
               "text": {
-                "type": "plain_text",
-                "text": "${{ github.workflow }}"
+                "type": "mrkdwn",
+                "text": "*Workflow* \n${{ github.workflow }}"
               }
             },
             {
