@@ -34,3 +34,10 @@ def check(length) -> bool:
 
 
 print(A)
+# 二分探索
+while left <= right:
+    mid = (left + right) // 2
+    if check(mid):
+        right = mid - 1
+    else:
+        left = mid + 1
