@@ -1,6 +1,6 @@
 n, m = map(int, input().split())
 node = [[] for _ in range(n)]
-for i in range(m):
+for _ in range(m):
     a, b = map(int, input().split())
     node[a - 1].append(b - 1)
     node[b - 1].append(a - 1)

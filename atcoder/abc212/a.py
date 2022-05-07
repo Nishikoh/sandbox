@@ -1,5 +1,5 @@
 a, b = map(int, input().split())
-if 0 < a:
+if a > 0:
     if b == 0:
         print("Gold")
     else:
